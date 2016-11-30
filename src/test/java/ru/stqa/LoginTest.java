@@ -3,11 +3,14 @@ package ru.stqa;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-public class FirstTest {
+import java.util.concurrent.TimeUnit;
+
+public class LoginTest {
 
     private WebDriver driver;
     private WebDriverWait wait;
@@ -15,13 +18,18 @@ public class FirstTest {
     @Before
     public void start(){
         driver = new ChromeDriver();
+        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         wait = new WebDriverWait(driver, 10);
     }
 
     @Test
     public void FirstTest(){
-        driver.get("http://www.google.com/");
+        driver.navigate().to("http://localhost/litecart/admin/");
+        driver.findElement(By.name("username")).sendKeys("admin");
+        driver.findElement(By.name("password")).sendKeys("admin");
+        driver.findElement(By.name("login")).click();
     }
+
 
     @After
     public void stop(){
